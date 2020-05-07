@@ -96,8 +96,12 @@ export class RoundComponent implements OnInit {
     Allpokemons.map((e, i) => { if (e.hp.value !== 0) { indexLife.push(i); }});
 
     if (np === 1) {
-      this.animateAttack.setMessage(`Choose another pokémon to continue!`);
-      setTimeout(() => { this.animateAttack.setMessage(''); }, 2000);
+      if ( !indexLife[0] ) {
+        alert('Perder');
+      } else {
+        this.animateAttack.setMessage(`Choose another pokémon to continue!`);
+        setTimeout(() => { this.animateAttack.setMessage(''); }, 2000);
+      }
     } else {
       if ( !indexLife[0] ) {
         alert('Ganhou');
