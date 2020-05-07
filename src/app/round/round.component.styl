@@ -1,0 +1,134 @@
+#fight
+  background url(../../assets/img/bg-gyn.jpg)
+  background-size cover
+  background-position center
+  flex-direction column
+  align-items unset
+  justify-content center
+
+  .menu-enemy
+    position absolute
+    top 0
+    left 0
+    width 100%
+    overflow hidden
+
+   	& > div
+      display table
+      margin 30px -15px 30px auto
+
+      ul
+        display flex
+        width calc(100% - 15px)
+
+        li img
+          max-width 40px
+          margin 0 5px
+
+        li.pokemon-dead img
+          transform scale(0.8)
+          filter grayscale(1)
+
+  .no-tap
+    position absolute
+    top 0
+    left 0
+    width 100%
+    height 100%
+
+  .pokemons
+    width 100%
+    max-width 700px
+    display flex
+    align-items flex-end
+    justify-content space-between
+    margin 0 auto
+    transform translate(0, calc(-50% + 8px))
+
+    .pokemon
+      display table
+      position relative
+
+      span
+        display table
+
+        img
+          position relative
+          z-index 2
+
+        &:before
+          content ''
+          display table
+          position absolute
+          bottom 0
+          left 50%
+          width calc(100% - 20px)
+          transform translate(-50%, 0)
+          height 20px
+          border-radius 50%
+          background-color rgba(0,0,0,0.2)
+          z-index 1
+
+      &.player-1 span
+        transform translate(0, 100px) scale(1.5)
+        transform-origin bottom center
+      &.player-2 span
+        transform translate(0, -50px) scale(0.8)
+        transform-origin bottom center
+
+.menu
+  position absolute
+  bottom 0
+  left 0
+  width 100%
+  overflow hidden
+
+  &>div
+    display flex
+    align-items center
+
+.message-round
+  position absolute
+  left 0
+  bottom 0
+  width 100%
+  height 100%
+  z-index -1
+  background-color #252525
+  color white
+  opacity 0
+  transition 0.5s
+
+  &.message-ative
+    opacity 1
+    z-index 100
+
+  &>div
+    min-height 100%
+    background-color #313131
+    width 80%
+    margin 0 auto
+    padding 10px 20px
+    transform: skew(-25deg, 0);
+
+    &>div
+      transform: skew(25deg, 0);
+      font-size 18px
+
+#fight-loading
+  background url(../../assets/img/bg-gyn.jpg)
+  background-size cover
+  background-position center
+  flex-direction column
+
+  h1
+    text-align center
+    color white
+    font-size 20px
+    text-shadow 1px 1px 5px black
+
+    img
+      display table
+      margin 0 auto 10px
+      max-width 150px
+      filter invert(1) brightness(1.5) contrast(1.5) drop-shadow(1px 2px 3px rgba(0,0,0,0.5))

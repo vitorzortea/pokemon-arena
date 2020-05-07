@@ -1,0 +1,121 @@
+<ng-container *ngIf="!loading">
+  <div id="fight" class="page">
+    <div class="menu-enemy">
+      <div>
+        <div class="pokemon-bar player-2">
+          <div>
+            <h2>{{this.pokemonsServices.pokemonsP2[this.pokemonsServices.index2].name}}</h2>
+            <p class="status">{{this.pokemonsServices.pokemonsP2[this.pokemonsServices.index2].especialStatus}}<p>
+            <p><span>Lv.</span> 50</p>
+            <div><span></span> </div>
+            <p>
+              {{this.pokemonsServices.pokemonsP2[this.pokemonsServices.index2].hp.value}}
+              /
+              {{this.pokemonsServices.pokemonsP2[this.pokemonsServices.index2].status[5].value}}
+            </p>
+          </div>
+        </div>
+        <ul>
+          <ng-container *ngFor="let pokemon of this.pokemonsServices.pokemonsP2">
+            <li>
+              <img src="assets/sprite-icone/{{pokemon.id}}.png" alt="nome pokemon">
+            </li>
+          </ng-container>
+        </ul>
+      </div>
+    </div>
+    <div class="pokemons">
+      <div class="pokemon player-1">
+        <span>
+          <img
+            src="assets/sprite-pokemon/{{this.pokemonsServices.pokemonsP1[this.pokemonsServices.index1].id}}-back-n.gif"
+            alt="{{this.pokemonsServices.pokemonsP1[this.pokemonsServices.index1].name}}"
+            title="{{this.pokemonsServices.pokemonsP1[this.pokemonsServices.index1].name}}"
+          />
+        </span>
+      </div>
+      <div class="pokemon player-2">
+        <span>
+          <img
+            src="assets/sprite-pokemon/{{this.pokemonsServices.pokemonsP2[this.pokemonsServices.index2].id}}-front-n.gif"
+            alt="{{this.pokemonsServices.pokemonsP2[this.pokemonsServices.index2].name}}"
+            title="{{this.pokemonsServices.pokemonsP2[this.pokemonsServices.index2].name}}"
+          />
+        </span>
+      </div>
+    </div>
+    <div class="menu">
+      <div>
+        <div class="pokemon-bar player-1">
+          <div>
+            <h2>{{this.pokemonsServices.pokemonsP1[this.pokemonsServices.index1].name}}</h2>
+            <p class="status">{{this.pokemonsServices.pokemonsP1[this.pokemonsServices.index1].especialStatus}}<p>
+            <p><span>Lv.</span> 50</p>
+            <div><span></span> </div>
+            <p>
+              {{this.pokemonsServices.pokemonsP1[this.pokemonsServices.index1].hp.value}}
+              /
+              {{this.pokemonsServices.pokemonsP1[this.pokemonsServices.index1].status[5].value}}
+            </p>
+          </div>
+        </div>
+        <div class="trocar-pokemon">
+          <h3>Trocar Pokemon</h3>
+          <ul>
+            <ng-container *ngFor="let pokemon of this.pokemonsServices.pokemonsP1; let i=index">
+              <ng-container *ngIf="pokemon.hp.value != 0 && pokemonsServices.index1 != i">
+                <li
+                  class="seletor-pokemon"
+                  title="{{pokemon.name}}"
+                  (click)="changeP1(i)"
+                ><img src="assets/sprite-icone/{{pokemon.id}}.png" alt="nome pokemon"></li>
+              </ng-container>
+              <ng-container *ngIf="pokemon.hp.value != 0 && pokemonsServices.index1 == i">
+                <li
+                  class="disable"
+                  title="{{pokemon.name}}"
+                ><img src="assets/sprite-icone/{{pokemon.id}}.png" alt="nome pokemon"></li>
+              </ng-container>
+              <ng-container *ngIf="pokemon.hp.value == 0">
+                <li
+                  class="pokemon-fainted"
+                  title="{{pokemon.name}}"
+                ><img src="assets/sprite-icone/{{pokemon.id}}.png" alt="nome pokemon"></li>
+              </ng-container>
+            </ng-container>
+          </ul>
+        </div>
+      </div>
+      <nav [ngClass]="{'no-move': noMove}">
+        <ul>
+          <ng-container *ngFor="let move of this.pokemonsServices.movesP1[this.pokemonsServices.index1]">
+            <li>
+              <div class="{{move.type}}" (click)="round(move)">
+                <p>{{move.name}}</p>
+                <p><span>{{move.ppAtual}}/{{move.pp}}</span></p>
+              </div>
+            </li>
+          </ng-container>
+        </ul>
+        <div></div>
+      </nav>
+      <div class="message-round" [ngClass]="{'message-ative': animateAttack.textRound}">
+        <div>
+          <div>
+            <span></span>
+            <p></p>
+          </div>
+        </div>
+      </div>
+      <div class="no-tap" *ngIf="runRound"></div>
+    </div>
+  </div>
+</ng-container>
+<ng-container *ngIf="loading">
+  <div id="fight-loading" class="page">
+    <h1>
+      <img src="assets/img/loading.gif" alt="Carregando" />
+      Carregando
+    </h1>
+  </div>
+</ng-container>

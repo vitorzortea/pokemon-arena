@@ -1,0 +1,83 @@
+#get
+  background url(../../assets/img/bg-gyn.jpg)
+  background-size cover
+  background-position center
+
+  .text-box
+    background-color rgba(0, 0, 0, 0.6)
+    padding 20px 40px
+    color white
+    border solid 1px white
+    border-radius 15px
+    box-shadow 0px 0px 0px 6px rgba(0, 0, 0, 0.6)
+    font-size 16px
+    text-align center
+    line-height 1.5em
+
+  ul
+    display flex
+    padding 40px 0
+    justify-content space-between
+
+    li
+      padding 0 10px
+      text-align center
+
+      img
+        width 100%
+        max-width 70px
+        display table
+        margin 0 auto
+        opacity 0;
+        animation radom-poke 0.6s
+        animation-delay 0s
+        animation-fill-mode forwards
+
+        &:nth-child(2)
+          max-width 40px
+          animation radom-poke 0.6s
+          animation-delay 0.5s
+          animation-fill-mode forwards
+
+        &:nth-child(3)
+          max-width 100px
+          animation radom-poke 0.6s
+          animation-delay 1s
+          animation-fill-mode forwards
+
+  div
+    text-align center
+
+    a
+      background white
+      padding 10px 30px
+      font-weight 900
+      color #3B5BA7
+      border solid 2px #3B5BA7
+      border-radius 15px
+      box-shadow 0px 0px 0px 3px white
+      text-transform uppercase
+      cursor pointer
+      font-size 20px
+      display inline-table
+      min-width 200px
+      text-align center
+      margin 10px 20px
+      transition 0.5s transform
+
+      &:hover
+        background-image: linear-gradient(to bottom, #deb416 0%, #ffcb05 20%, #deb416 100%);
+        box-shadow: 0px 0px 0px 3px #deb416;
+        color: #44380a;
+        border-color: #44380a;
+        transform scale(1.05)
+
+@keyframes radom-poke
+  0%
+    transform translate(0, -20px)
+    opacity 0
+
+  100%
+    transform translate(0, 0px)
+    opacity 1
+

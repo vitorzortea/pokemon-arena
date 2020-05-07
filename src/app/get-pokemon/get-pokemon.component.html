@@ -1,0 +1,22 @@
+<div id="get" class="page">
+  <main>
+    <div class="text-box">
+      <p>
+        <strong>Nunca foi tão rápido ser um Mestre Pokémon!</strong><br>
+        Você acabou de conseguir 6 ótimos exemplares de Pokémon aleatóriamente.<br>
+        Caso não queira esse grupo e companheirinhos, você pode sortear novamente, boa sorte!
+      </p>
+    </div>
+    <ul>
+      <li *ngFor="let pokemon of this.pokemonsService.idP1">
+        <img src="assets/img/pokeball.png" alt="Pokebola">
+        <img src="assets/img/seta.png" alt="Seta">
+        <img src="assets/sprite-icone/{{pokemon}}.png" alt="Pokemon">
+      </li>
+    </ul>
+    <div>
+      <a routerLink="/fight">Lutar</a>
+      <a (click)="sortear()">Sortear</a>
+    </div>
+  </main>
+</div>

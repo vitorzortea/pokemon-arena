@@ -1,0 +1,138 @@
+for player in 1 2
+  .pokemons-atacked-{player}
+    .pokemon.player-{player}
+      if player < 2
+        animation atacked-player-1 1s
+      else
+        animation atacked-player-2 1s
+
+  .pokemons-posion-{player}
+    .pokemon.player-{player}
+      animation posion 2s
+      animation-delay 0.5s
+
+  .pokemons-damage-{player}
+    .pokemon.player-{player}
+      animation damage-player 1s
+      animation-delay 0.5s
+
+//Ataque básico
+@keyframes atacked-player-1
+  0%
+    transform translate(0, 0) scale(1)
+
+  30%
+    transform translate(-30px, 30px) scale(1.2)
+
+  50%
+    transform translate(60px, -30px) scale(0.8)
+
+  100%
+    transform translate(0, 0) scale(1)
+
+@keyframes atacked-player-2
+  0%
+    transform translate(0, 0) scale(1)
+
+  30%
+    transform translate(10px, -10px) scale(0.9)
+
+  50%
+    transform translate(-10px, 10px) scale(1.1)
+
+  100%
+    transform translate(0, 0) scale(1)
+
+//Ataque de veneno
+@keyframes posion
+  0%
+    filter sepia(0) hue-rotate(0deg) contrast(1) brightness(1)
+
+  5%
+    filter sepia(1) hue-rotate(235deg) contrast(1.2) brightness(0.7)
+
+  30%
+    filter sepia(1) hue-rotate(235deg) contrast(1.2) brightness(0.7)
+
+  35%
+    filter sepia(0) hue-rotate(0deg) contrast(1) brightness(1)
+
+  40%
+    filter sepia(1) hue-rotate(235deg) contrast(1.2) brightness(0.7)
+
+  60%
+    filter sepia(1) hue-rotate(235deg) contrast(1.2) brightness(0.7)
+
+  65%
+    filter sepia(0) hue-rotate(0deg) contrast(1) brightness(1)
+
+  70%
+    filter sepia(0) hue-rotate(0deg) contrast(1) brightness(1)
+
+  75%
+    filter sepia(1) hue-rotate(235deg) contrast(1.2) brightness(0.7)
+
+  95%
+    filter sepia(1) hue-rotate(235deg) contrast(1.2) brightness(0.7)
+
+  100%
+    filter sepia(0) hue-rotate(0deg) contrast(1) brightness(1)
+
+//Ataque damage
+@keyframes damage-player
+  0%
+    filter sepia(1) hue-rotate(305deg) saturate(10) brightness(0.8)
+    opacity 1
+
+  10%
+    filter sepia(1) hue-rotate(305deg) saturate(10) brightness(0.8)
+    opacity 0
+
+  20%
+    filter sepia(1) hue-rotate(305deg) saturate(10) brightness(0.8)
+    opacity 1
+
+  30%
+    filter sepia(1) hue-rotate(305deg) saturate(10) brightness(0.8)
+    opacity 1
+
+  40%
+    filter sepia(1) hue-rotate(305deg) saturate(10) brightness(0.8)
+    opacity 0
+
+  50%
+    filter sepia(1) hue-rotate(305deg) saturate(10) brightness(0.8)
+    opacity 1
+
+  60%
+    filter sepia(1) hue-rotate(305deg) saturate(10) brightness(0.8)
+    opacity 1
+
+  70%
+    filter sepia(1) hue-rotate(305deg) saturate(10) brightness(0.8)
+    opacity 0
+
+  80%
+    filter sepia(1) hue-rotate(305deg) saturate(10) brightness(0.8)
+    opacity 1
+
+  90%
+    filter sepia(1) hue-rotate(305deg) saturate(10) brightness(0.8)
+    opacity 1
+
+  95%
+    filter sepia(1) hue-rotate(305deg) saturate(10) brightness(0.8)
+    opacity 0
+
+  100%
+    filter sepia(1) hue-rotate(305deg) saturate(10) brightness(0.8)
+    opacity 1
+
+
+//Ataque debuffer
+
+
+//Ataque buffer
+
+
+//Ataque transform
