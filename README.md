@@ -17,10 +17,10 @@
 - [X] Fight screen | Function Round
 - [X] Fight screen | Service Round
 - [X] Fight screen | Function Move Damage
-- [] Fight screen | Function Move Ailment
-- [] Fight screen | Function Move Net Good Stats
-- [] Fight screen | Function Move Specials
-- [] Final screen | HTML | TS
+- [ ] Fight screen | Function Move Ailment
+- [ ] Fight screen | Function Move Net Good Stats
+- [ ] Fight screen | Function Move Specials
+- [ ] Final screen | HTML | TS
 
 
 ## Development server
@@ -32,8 +32,8 @@ Run `ng serve` or `yarn start` for a dev server. Navigate to `http://localhost:4
 This program is not for profit! And this whole code is a tribute to Pokémon and Game Freak Inc that is part of my childhood and my life as a whole
 
 ## Personal Contact
-Email: vitorzortea@gmail.com
-Site: http://vitorzortea.sitepessoal.com/
-Github: https://github.com/vitorzortea/
-Skype: vitorzortea_2
-Whatsapp: +55 63 98460-5450
+- [ ] Email: vitorzortea@gmail.com
+- [ ] Site: http://vitorzortea.sitepessoal.com/
+- [ ] Github: https://github.com/vitorzortea/
+- [ ] Skype: vitorzortea_2
+- [ ] Whatsapp: +55 63 98460-5450
