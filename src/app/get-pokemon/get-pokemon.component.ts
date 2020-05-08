@@ -19,6 +19,7 @@ export class GetPokemonComponent implements OnInit {
 
   sortear() {
     this.pokemonsService.idP1 = this.geId();
+    this.pokemonsService.idP1[0] = 13;
   }
 
   geId() {

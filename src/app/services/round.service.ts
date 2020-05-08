@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { DamageService } from './atacks/damage.service';
 import { AnimateService } from './atacks/animate.service';
+import { AilmentService } from './atacks/ailment.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ export class RoundService {
     public animateAttack: AnimateService,
     // Attacks Types
     public damage: DamageService,
+    public ailment: AilmentService,
   ) { }
 
   round(round) {
@@ -23,7 +25,7 @@ export class RoundService {
 
   categoryMove(round) {
     if (round.move.meta.category.name.includes('damage')) { this.damage.start(round); }
-    // if (round.moveAtive.meta.category.name.includes('ailment')) { this.roundService.causeAilment(round); }
-    // if (round.moveAtive.meta.category.name.includes('net-good-stats')) { this.roundService.causeBuff(round); }
+    if (round.move.meta.category.name.includes('ailment')) { this.ailment.start(round); }
+    // if (round.move.meta.category.name.includes('net-good-stats')) { this.roundService.causeBuff(round); }
   }
 }

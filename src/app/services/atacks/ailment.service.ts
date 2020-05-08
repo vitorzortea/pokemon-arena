@@ -14,26 +14,65 @@ export class AilmentService {
 
 
   start(round) {
-    const porcentAccuracy = Math.floor((Math.random() * 100) + 1);
-    const objFunctions = {
-      sleep: this.applyAilment(round, `${round.pokemonTo.name} is fast asleep!`),
-      confusion: this.applyAilment(round, `${round.pokemonTo.name} became confused!`),
-      poison: this.applyAilment(round, `${round.pokemonTo.name} became posion!`),
-      leechseed: this.applyAilment(round, `${round.pokemonTo.name} was seeded!`),
-      paralysis: this.applyAilment(round, `${round.pokemonTo.name} was paralyzed!`),
-    };
+    const testObject = {
+      sleep: (round)=>{
+        console.log('entrou na function do obj');
+        this.applyAilment(round, `${round.pokemonTo.name} is fast asleep!`);
+      },
+      confusion: (round)=>{
+        console.log('entrou na function do obj');
+        this.applyAilment(round, `${round.pokemonTo.name} became confused!`);
+      },
+      poison: (round)=>{
+        console.log('entrou na function do obj');
+        this.applyAilment(round, `${round.pokemonTo.name} became posion!`);
+      },
+      burn: (round)=>{
+        console.log('entrou na function do obj');
+        this.applyAilment(round, `${round.pokemonTo.name} was burned!`);
+      },
+      leechseed: (round)=>{
+        console.log('entrou na function do obj');
+        this.applyAilment(round, `${round.pokemonTo.name} was seeded!`);
+      },
+      paralysis: (round)=>{
+        console.log('entrou na function do obj');
+        this.applyAilment(round, `${round.pokemonTo.name} was paralyzed!`);
+      },
+      trap: (round)=>{
+        console.log('entrou na function do obj');
+        this.applyAilment(round, `${round.pokemonTo.name} Trap!`);
+      },
+    }
+    
     const typeMove = round.move.meta.ailment.name.replace('-', '');
-    const applyMove = objFunctions[typeMove];
-
-    (porcentAccuracy <= round.move.accuracy) ? applyMove() : this.faildAttack();
+    testObject[typeMove](round);
   }
 
-  applyAilment(round, menssageAilment) {
+  applyAilment(round, menssage) {
+    console.log('chamou a function!');
+    console.log(menssage);    
+    const porcentAccuracy = Math.floor((Math.random() * 100) + 1);
+    console.log(porcentAccuracy);    
+    console.log(round.move.meta.ailment_chance);    
+    if (
+      round.pokemonTo.especialStatus === 'normal'
+      && porcentAccuracy <= round.move.meta.ailment_chance
+      || round.move.meta.ailment_chance === 0
+    ) {
+      round.pokemonTo.especialStatus = round.move.meta.ailment.name;
+      setTimeout(() => { this.fastmessages(menssage); }, 2000);
+    } else { this.faildAttack(); }
+  }
+
+  applyAilment2(round, menssageAilment) {
+    console.log(`entrou2`);
     if (round.pokemonTo.especialStatus === 'normal') {
       round.pokemonTo.especialStatus = round.move.meta.ailment.name;
       setTimeout(() => { this.fastmessages(menssageAilment); }, 2000);
     } else { this.faildAttack(); }
   }
+
   removeAilment(pokemon, porcetagem, menssageRemove, menssageContinue) {
     const porcentWakeup = Math.floor((Math.random() * 100) + 1);
     if ( porcentWakeup > porcetagem ) {
