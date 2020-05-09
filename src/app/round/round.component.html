@@ -5,7 +5,11 @@
         <div class="pokemon-bar player-2">
           <div>
             <h2>{{this.pokemonsServices.pokemonsP2[this.pokemonsServices.index2].name}}</h2>
-            <p class="status">{{this.pokemonsServices.pokemonsP2[this.pokemonsServices.index2].especialStatus}}<p>
+            <ng-container *ngIf="this.pokemonsServices.pokemonsP2[this.pokemonsServices.index2].especialStatus != 'normal'">
+              <p class="status {{this.pokemonsServices.pokemonsP2[this.pokemonsServices.index2].especialStatus}}">
+                {{this.pokemonsServices.pokemonsP2[this.pokemonsServices.index2].especialStatus}}
+              <p>
+            </ng-container>
             <p><span>Lv.</span> 50</p>
             <div><span></span> </div>
             <p>
@@ -49,7 +53,11 @@
         <div class="pokemon-bar player-1">
           <div>
             <h2>{{this.pokemonsServices.pokemonsP1[this.pokemonsServices.index1].name}}</h2>
-            <p class="status">{{this.pokemonsServices.pokemonsP1[this.pokemonsServices.index1].especialStatus}}<p>
+            <ng-container *ngIf="this.pokemonsServices.pokemonsP1[this.pokemonsServices.index1].especialStatus != 'normal'">
+              <p class="status {{this.pokemonsServices.pokemonsP1[this.pokemonsServices.index1].especialStatus}}">
+                {{this.pokemonsServices.pokemonsP1[this.pokemonsServices.index1].especialStatus}}
+              <p>
+            </ng-container>
             <p><span>Lv.</span> 50</p>
             <div><span></span> </div>
             <p>
