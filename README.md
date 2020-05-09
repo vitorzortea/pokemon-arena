@@ -11,16 +11,32 @@
 - [X] Navigation routes
 - [X] API consumption `https://pokeapi.co/`
 - [X] Sprites firts generation
-- [X] Home screen | HTML | TS
-- [X] Random screen | HTML | TS
-- [X] Fight screen | HTML
-- [X] Fight screen | Function Round
+- [X] Home screen | HTML/CSS
+- [X] Home screen | Function route
+- [X] Random screen | HTML/CSS
+- [X] Random screen | Function random Pokemon
+- [X] Random screen | Function route
+- [X] Fight screen | HTML/CSS
+- [X] Fight screen | Service Get Pokemons and Moves
+- [X] Fight screen | Function Start Round
+- [X] Fight screen | Messaging for attack
+- [X] Fight screen | Attack time and its effects
+- [X] Fight screen | Funciton Die and change Pokemon 
 - [X] Fight screen | Service Round
 - [X] Fight screen | Function Move Damage
-- [ ] Fight screen | Function Move Ailment
+- [X] Fight screen | Function Apply Damage
+- [X] Fight screen | Function Move Ailment
+- [ ] Fight screen | Function Apply Ailment Effect
 - [ ] Fight screen | Function Move Net Good Stats
+- [ ] Fight screen | Function Apply Net Good Stats
 - [ ] Fight screen | Function Move Specials
+- [ ] Fight screen | Function Apply Specials
+- [X] Fight screen | Function Route final round
 - [ ] Final screen | HTML | TS
+- [ ] Final screen | Function winner
+- [ ] Final screen | Function loser
+- [ ] Final screen | Function loser
+- [ ] Final screen | Function route restart
 
 
 ## Development server
