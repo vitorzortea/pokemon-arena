@@ -105,6 +105,7 @@ export class RoundComponent implements OnInit {
   }
 
   morte(name, np) {
+    this.runRound = false;
     this.animateAttack.setMessage(`${name} fainted!`);
     setTimeout(() => {
       this.animateAttack.setMessage('');
