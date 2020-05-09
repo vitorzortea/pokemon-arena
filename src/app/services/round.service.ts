@@ -26,6 +26,6 @@ export class RoundService {
 
   categoryMove(round) {
     if (round.move.meta.category.name.includes('damage')) { this.damage.start(round); }
-    if (round.move.meta.category.name.includes('ailment')) { this.ailment.start(round); }\
+    if (round.move.meta.category.name.includes('ailment')) { this.ailment.start(round); }
   }
 }
