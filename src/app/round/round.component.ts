@@ -99,8 +99,12 @@ export class RoundComponent implements OnInit {
         setTimeout(() => {
           this.runRound = false;
           if (pokemon1.hp.value === 0) { this.morte(pokemon1.name, np1); } else { this.noMove = false; }
+          this.finalAtrak({ p1: np1, p2: np2, pokemonFrom: pokemon1, pokemonTo: pokemon2});
         }, this.mensageria.timeP2);
-      } else { this.morte(pokemon2.name, np2); }
+      } else {
+        this.morte(pokemon2.name, np2);
+        this.finalAtrak({ p1: np1, p2: np2, pokemonFrom: pokemon1, pokemonTo: pokemon2});
+      }
     }, this.mensageria.timeP1);
   }
 
@@ -127,6 +131,31 @@ export class RoundComponent implements OnInit {
       if(!attackWithAilment[round.pokemonFrom.especialStatus]){
         menssagesNoAilment[menssageSelect](round)
       }
+    }
+  }
+
+  finalAtrak(round){
+    console.log('entrou!');
+    const effectAilment = {
+      poison: (pokemon, np, ailment) => {
+        console.log('entrou!2');
+        this.applyAilment(pokemon, np, ailment)
+        this.animateAttack.setMessage(`${pokemon.name} is hurt by poison!`);
+        setTimeout(() => this.animateAttack.setMessage(''), 2000);
+      },
+    }
+    if(effectAilment[round.pokemonFrom.especialStatus]){
+      console.log('entrou!1');
+      effectAilment[round.pokemonFrom.especialStatus](round.pokemonFrom, round.p1, round.pokemonFrom.especialStatus)
+      if(effectAilment[round.pokemonTo.especialStatus]){
+        setTimeout(
+          () => effectAilment[round.pokemonTo.especialStatus](round.pokemonTo, round.p2, round.pokemonTo.especialStatus),
+          2500
+        );
+      }
+    } else if(effectAilment[round.pokemonTo.especialStatus]){
+      console.log('entrou!2');
+      effectAilment[round.pokemonTo.especialStatus](round.pokemonTo, round.np2, round.pokemonTo.especialStatus)
     }
   }
 
@@ -185,7 +214,11 @@ export class RoundComponent implements OnInit {
         pokemon.countSleep--;
       },
       confusion: (pokemon)=>{ },
-      poison: (pokemon)=>{ },
+      poison: (pokemon)=>{
+        let newHP = Math.floor(pokemon.hp.value - (pokemon.status[4].value / 8));
+        if (newHP <= 0) { newHP = 0; }
+        setTimeout(() => { this.animateAttack.hpMinus(pokemon, np, newHP); }, 2000);
+      },
       burn: (pokemon)=>{ },
       leechseed: (pokemon)=>{ },
       paralysis: (pokemon)=>{ },
