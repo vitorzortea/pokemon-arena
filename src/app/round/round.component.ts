@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { PokemonsService } from '../services/pokemons.service';
 import { async } from '@angular/core/testing';
 import { AnimateService } from '../services/atacks/animate.service';
+import { MensageriaService } from '../services/mensageria.service';
 
 @Component({
   selector: 'app-round',
@@ -11,15 +12,16 @@ import { AnimateService } from '../services/atacks/animate.service';
   styleUrls: ['./round.component.styl']
 })
 export class RoundComponent implements OnInit {
-  public loading = true;
-  public runRound = false;
-  public noMove = false;
+  loading = true;
+  runRound = false;
+  noMove = false;
 
   constructor(
     public pokemonsServices: PokemonsService,
     public roundServices: RoundService,
     private router: Router,
     public animateAttack: AnimateService,
+    public mensageria: MensageriaService,
   ) { }
 
   ngOnInit() {
@@ -50,6 +52,9 @@ export class RoundComponent implements OnInit {
   }
 
   round(move) {
+    this.mensageria.mensageriaP1 = Array.from({length: 15}, (e)=>'');
+    this.mensageria.mensageriaP2 = Array.from({length: 15}, (e)=>'');
+
     this.runRound = true; this.noMove = true;
     let pokemon1: any; let pokemon2: any; let np1: number; let np2: number;
 
@@ -62,32 +67,49 @@ export class RoundComponent implements OnInit {
       pokemon1 = p2; pokemon2 = p1; np1 = 2; np2 = 1;
     }
 
-    this.roundServices.round({pokemonFrom: pokemon1,  pokemonTo: pokemon2, move, p1: np1, p2: np2});
+    this.roundServices.round({
+      move,
+      p1: np1,
+      p2: np2,
+      pokemonFrom: pokemon1,
+      pokemonTo: pokemon2,
+      mensages: this.mensageria.mensageriaP1,
+    });
+    //display mensageria
+    this.mensageria.timeP1 = 0;
+    this.mensageria.display(this.mensageria.mensageriaP1, 'timeP1');
+    console.log('time1', this.mensageria.timeP1);
+
+
     setTimeout(() => {
       if (pokemon2.hp.value !== 0) {
-        this.roundServices.round({pokemonFrom: pokemon2,  pokemonTo: pokemon1, move, p1: np2, p2: np1});
-        setTimeout(() => {
-          this.runRound = false;
-          if (pokemon1.hp.value === 0) {
-            this.animateAttack.setMessage(`${pokemon1.name} fainted!`);
-            setTimeout(() => {
-              this.animateAttack.setMessage('');
-              this.levelChange(np1);
-            }, 2000);
-          } else {
-            this.noMove = false;
-          }
-        }, 6000);
-      } else {
-        this.animateAttack.setMessage(`${pokemon2.name} fainted!`);
-        setTimeout(() => {
-          this.animateAttack.setMessage('');
-          this.runRound = false;
-          this.levelChange(np2);
-        }, 2000);
+        this.roundServices.round({
+          move,
+          p1: np2,
+          p2: np1,
+          pokemonFrom: pokemon2,
+          pokemonTo: pokemon1,
+          mensages: this.mensageria.mensageriaP2,
+        });
+        //display mensageria
+        this.mensageria.timeP2 = 0;
+        this.mensageria.display(this.mensageria.mensageriaP2, 'timeP2');
+        console.log('time2', this.mensageria.timeP2);
 
-      }
-    }, 6000);
+        setTimeout(() => {
+          this.runRound = false;
+          if (pokemon1.hp.value === 0) { this.morte(pokemon1.name, np1); } else { this.noMove = false; }
+        }, this.mensageria.timeP2);
+      } else { this.morte(pokemon2.name, np2); }
+    }, this.mensageria.timeP1);
+  }
+
+  morte(name, np) {
+    this.animateAttack.setMessage(`${name} fainted!`);
+    setTimeout(() => {
+      this.animateAttack.setMessage('');
+      this.levelChange(np);
+    }, 2000);
   }
 
   levelChange(np) {

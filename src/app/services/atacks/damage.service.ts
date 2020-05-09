@@ -1,6 +1,7 @@
 import { PokemonsService } from './../pokemons.service';
 import { AnimateService } from './animate.service';
 import { Injectable } from '@angular/core';
+import { MensageriaService } from '../mensageria.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,10 +11,12 @@ export class DamageService {
 
   constructor(
     public animateAttack: AnimateService,
+    public mensageria: MensageriaService,
     public pokemonsService: PokemonsService
   ) { }
 
   start(round) {
+    this.mensagemForca = ''
     const porcentAccuracy = Math.floor((Math.random() * 100) + 1);
     if (porcentAccuracy <= round.move.accuracy) {
       this.applyAttack(round);
@@ -25,20 +28,19 @@ export class DamageService {
       setTimeout(() => { this.animateAttack.classRound(`pokemons-damage-${round.p2}`); }, 5800);
 
     } else {
-      setTimeout(() => { this.animateAttack.setMessage('But it failed!'); }, 2000);
-      setTimeout(() => { this.animateAttack.setMessage(''); }, 4000);
+      this.mensageria.setMensageria(round.mensages, 4, 'But it failed!');
     }
   }
 
   applyAttack(round) {
     const forca = this.calculateEffect(round);
-    setTimeout(() => { this.animateAttack.setMessage(this.mensagemForca); this.mensagemForca = ''; }, 2500);
-    setTimeout(() => { this.animateAttack.setMessage(''); }, 4500);
+    if(this.mensagemForca) {
+      this.mensageria.setMensageria(round.mensages, 6, this.mensagemForca);
+    }
 
     // tslint:disable-next-line: max-line-length
     let newHP = Math.floor(round.pokemonTo.hp.value - (0.44 * round.pokemonFrom.status[4].value / round.pokemonTo.status[3].value * round.move.power  + 2) * forca);
     if (newHP <= 0) { newHP = 0; }
-
     setTimeout(() => { this.animateAttack.hpMinus(round.pokemonTo, round.p2, newHP); }, 2000);
   }
 
