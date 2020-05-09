@@ -67,7 +67,7 @@ export class RoundComponent implements OnInit {
       pokemon1 = p2; pokemon2 = p1; np1 = 2; np2 = 1;
     }
 
-    this.roundServices.round({
+    this.attack({
       move,
       p1: np1,
       p2: np2,
@@ -83,7 +83,7 @@ export class RoundComponent implements OnInit {
 
     setTimeout(() => {
       if (pokemon2.hp.value !== 0) {
-        this.roundServices.round({
+        this.attack({
           move,
           p1: np2,
           p2: np1,
@@ -102,6 +102,32 @@ export class RoundComponent implements OnInit {
         }, this.mensageria.timeP2);
       } else { this.morte(pokemon2.name, np2); }
     }, this.mensageria.timeP1);
+  }
+
+  attack(round) {
+    const attackWithAilment = {
+      sleep: (round) => {
+        this.animateAttack.setMessage(`${round.pokemonFrom.name} is sleeping`);
+        setTimeout(() => this.animateAttack.setMessage(''), 2000);
+        this.applyAilment(round.pokemonFrom, round.p1,  round.pokemonFrom.especialStatus);
+      },
+    }
+    const menssagesNoAilment = {
+      sleep: (round) => {
+        setTimeout(() => this.animateAttack.setMessage(`${round.pokemonFrom.name} wake up!`), 2500);
+        setTimeout(() => this.animateAttack.setMessage(''), 4500);
+        this.roundServices.round(round);
+      }
+    }
+    const menssageSelect = round.pokemonFrom.especialStatus;
+    if(!attackWithAilment[round.pokemonFrom.especialStatus]){
+      this.roundServices.round(round);
+    } else {
+      attackWithAilment[round.pokemonFrom.especialStatus](round);
+      if(!attackWithAilment[round.pokemonFrom.especialStatus]){
+        menssagesNoAilment[menssageSelect](round)
+      }
+    }
   }
 
   morte(name, np) {
@@ -149,4 +175,22 @@ export class RoundComponent implements OnInit {
     }
   }
 
+  applyAilment(pokemon, np, ailment) {
+    const routeAilment = {      
+      sleep: (pokemon)=>{
+        if(pokemon.countSleep <= 0){
+          pokemon.countSleep = 0;
+          pokemon.especialStatus = 'normal';
+        }
+        pokemon.countSleep--;
+      },
+      confusion: (pokemon)=>{ },
+      poison: (pokemon)=>{ },
+      burn: (pokemon)=>{ },
+      leechseed: (pokemon)=>{ },
+      paralysis: (pokemon)=>{ },
+      trap: (pokemon)=>{ },
+    }
+    routeAilment[ailment](pokemon);
+  }
 }

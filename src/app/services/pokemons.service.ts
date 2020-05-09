@@ -76,6 +76,7 @@ export class PokemonsService {
           status: res.stats.map((ee) => ({ name: ee.stat.name, value: ee.base_stat })),
           hp: {value: res.stats[5].base_stat, porcent: 1},
           especialStatus: 'normal',
+          countSleep: 0,
           moves: this.selectMoves(res.moves)
         };
       }
