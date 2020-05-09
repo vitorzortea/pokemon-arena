@@ -32,11 +32,12 @@
 - [ ] **Fight screen** | Function Move Specials
 - [ ] **Fight screen** | Function Apply Specials
 - [X] **Fight screen** | Function Route final round
-- [ ] **Final screen** | HTML | TS
+- [ ] **Final screen** | HTML/CSS
 - [ ] **Final screen** | Function winner
 - [ ] **Final screen** | Function loser
 - [ ] **Final screen** | Function loser
 - [ ] **Final screen** | Function route restart
+- [ ] **Transform Responsive** | CSS
 
 
 ## Development server
