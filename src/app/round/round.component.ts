@@ -55,27 +55,30 @@ export class RoundComponent implements OnInit {
     this.mensageria.mensageriaP1 = Array.from({length: 15}, (e) => '');
     this.mensageria.mensageriaP2 = Array.from({length: 15}, (e) => '');
 
+    const indexMove = Math.floor((Math.random() * this.pokemonsServices.movesP2[this.pokemonsServices.index2].length));
+    const move2 = this.pokemonsServices.movesP2[this.pokemonsServices.index2][indexMove]
+
     this.runRound = true; this.noMove = true;
-    let pokemon1: any; let pokemon2: any; let np1: number; let np2: number;
+    let pokemon1: any; let pokemon2: any; let np1: number; let np2: number; let moveNp1: any; let moveNp2: any;
 
     const p1 = this.pokemonsServices.pokemonsP1[this.pokemonsServices.index1];
     const p2 = this.pokemonsServices.pokemonsP2[this.pokemonsServices.index2];
 
     if (p1.status[0].value > p2.status[0].value) {
-      pokemon1 = p1; pokemon2 = p2; np1 = 1; np2 = 2;
+      pokemon1 = p1; pokemon2 = p2; np1 = 1; np2 = 2; moveNp1 = move; moveNp2 = move2;
     } else {
-      pokemon1 = p2; pokemon2 = p1; np1 = 2; np2 = 1;
+      pokemon1 = p2; pokemon2 = p1; np1 = 2; np2 = 1; moveNp1 = move2; moveNp2 = move;
     }
 
     this.attack({
-      move,
       p1: np1,
       p2: np2,
+      move: moveNp1,
       pokemonFrom: pokemon1,
       pokemonTo: pokemon2,
       mensages: this.mensageria.mensageriaP1,
     });
-    //display mensageria
+    // display mensageria
     this.mensageria.timeP1 = 0;
     this.mensageria.display(this.mensageria.mensageriaP1, 'timeP1');
     console.log('time1', this.mensageria.timeP1);
@@ -84,14 +87,14 @@ export class RoundComponent implements OnInit {
     setTimeout(() => {
       if (pokemon2.especialStatus !== 'fainted') {
         this.attack({
-          move,
           p1: np2,
           p2: np1,
+          move: moveNp2,
           pokemonFrom: pokemon2,
           pokemonTo: pokemon1,
           mensages: this.mensageria.mensageriaP2,
         });
-        //display mensageria
+        // display mensageria
         this.mensageria.timeP2 = 0;
         this.mensageria.display(this.mensageria.mensageriaP2, 'timeP2');
         console.log('time2', this.mensageria.timeP2);
