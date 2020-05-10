@@ -34,13 +34,16 @@ export class DamageService {
 
   applyAttack(round) {
     const forca = this.calculateEffect(round);
-    if(this.mensagemForca) {
+    if (this.mensagemForca) {
       this.mensageria.setMensageria(round.mensages, 6, this.mensagemForca);
     }
 
     // tslint:disable-next-line: max-line-length
     let newHP = Math.floor(round.pokemonTo.hp.value - (0.44 * round.pokemonFrom.status[4].value / round.pokemonTo.status[3].value * round.move.power  + 2) * forca);
-    if (newHP <= 0) { newHP = 0; }
+    if (newHP <= 0) {
+      newHP = 0;
+      round.pokemonTo.especialStatus = 'fainted';
+    }
     setTimeout(() => { this.animateAttack.hpMinus(round.pokemonTo, round.p2, newHP); }, 2000);
   }
 

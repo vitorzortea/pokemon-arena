@@ -82,7 +82,7 @@ export class RoundComponent implements OnInit {
 
 
     setTimeout(() => {
-      if (pokemon2.hp.value !== 0) {
+      if (pokemon2.especialStatus !== 'fainted') {
         this.attack({
           move,
           p1: np2,
@@ -98,7 +98,7 @@ export class RoundComponent implements OnInit {
 
         setTimeout(() => {
           this.runRound = false;
-          if (pokemon1.hp.value === 0) { this.morte(pokemon1.name, np1); } else { this.noMove = false; }
+          if (pokemon1.especialStatus === 'fainted') { this.morte(pokemon1.name, np1); } else { this.noMove = false; }
           this.finalAtrak({ p1: np1, p2: np2, pokemonFrom: pokemon1, pokemonTo: pokemon2});
         }, this.mensageria.timeP2);
       } else {
@@ -170,27 +170,34 @@ export class RoundComponent implements OnInit {
 
   levelChange(np) {
     const indexLife = [];
+    console.log('np ', np);
     const Allpokemons = (np === 1) ? this.pokemonsServices.pokemonsP1 : this.pokemonsServices.pokemonsP2;
-    Allpokemons.map((e, i) => { if (e.hp.value !== 0) { indexLife.push(i); }});
+    Allpokemons.map((e, i) => { if (e.especialStatus !== 'fainted') { indexLife.push(i); }});
+    console.log(indexLife);
 
-    if (np === 1) {
-      if ( !indexLife[0] ) {
-        alert('Perder');
-      } else {
-        this.animateAttack.setMessage(`Choose another pokémon to continue!`);
-        setTimeout(() => { this.animateAttack.setMessage(''); }, 2000);
+    const playerControl = {
+      1: () => {
+        if ( indexLife.length ) {
+          this.animateAttack.setMessage(`Choose another pokémon to continue!`);
+          setTimeout(() => { this.animateAttack.setMessage(''); }, 2000);
+        } else {
+          alert('Perder');
+        }
+      },
+      2: () => {
+        console.log('entrou 2');
+        if ( indexLife.length ) {
+          const pokemonSelect = Math.floor(Math.random() * indexLife.length);
+          document.querySelectorAll('.menu-enemy ul li')[this.pokemonsServices.index2].classList.add('pokemon-dead')
+          this.pokemonsServices.index2 = indexLife[pokemonSelect];
+          this.noMove = false;
+          document.querySelector(`.pokemon-bar.player-2>div>div>span`).setAttribute('style', `transform: scaleX(1)`);
+        } else {
+          alert('Ganhou');
+        }
       }
-    } else {
-      if ( !indexLife[0] ) {
-        alert('Ganhou');
-      } else {
-        const pokemonSelect = Math.floor(Math.random() * indexLife.length);
-        document.querySelectorAll('.menu-enemy ul li')[this.pokemonsServices.index2].classList.add('pokemon-dead')
-        this.pokemonsServices.index2 = indexLife[pokemonSelect];
-        this.noMove = false;
-        document.querySelector(`.pokemon-bar.player-2>div>div>span`).setAttribute('style', `transform: scaleX(1)`);
-      }
-    }
+    };
+    playerControl[np]();
   }
 
   changeP1(index) {
@@ -216,7 +223,11 @@ export class RoundComponent implements OnInit {
       confusion: () => { },
       poison: () => {
         let newHP = Math.floor(pokemon.hp.value - (pokemon.status[4].value / 8));
-        if (newHP <= 0) { newHP = 0; }
+        if (newHP <= 0) {
+          newHP = 0;
+          pokemon.especialStatus = 'fainted';
+          this.morte(pokemon.name, np);
+        }
         setTimeout(() => { this.animateAttack.hpMinus(pokemon, np, newHP); }, 2000);
       },
       burn: () => { },
