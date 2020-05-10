@@ -15,7 +15,7 @@
     h2
       text-transform uppercase
       font-size 16px
-    
+
     .status
       display inline-table
       padding 0px 8px 2px
@@ -228,3 +228,20 @@ nav
         &:hover
           transform scale(1.1)
           box-shadow 0 0 0 3px black
+
+@media screen and (max-width: 600px)
+  .pokemon-bar
+    transform none
+    padding 10px
+    margin 0 0 10px
+    width 100%
+
+    &.player-2
+      transform none
+      margin 0 0 10px
+
+      &>div
+        transform none
+
+    &>div
+      transform none
