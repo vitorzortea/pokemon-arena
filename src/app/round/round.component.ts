@@ -52,8 +52,8 @@ export class RoundComponent implements OnInit {
   }
 
   round(move) {
-    this.mensageria.mensageriaP1 = Array.from({length: 15}, (e)=>'');
-    this.mensageria.mensageriaP2 = Array.from({length: 15}, (e)=>'');
+    this.mensageria.mensageriaP1 = Array.from({length: 15}, (e) => '');
+    this.mensageria.mensageriaP2 = Array.from({length: 15}, (e) => '');
 
     this.runRound = true; this.noMove = true;
     let pokemon1: any; let pokemon2: any; let np1: number; let np2: number;
@@ -124,11 +124,11 @@ export class RoundComponent implements OnInit {
       }
     }
     const menssageSelect = round.pokemonFrom.especialStatus;
-    if(!attackWithAilment[round.pokemonFrom.especialStatus]){
+    if (!attackWithAilment[round.pokemonFrom.especialStatus]){
       this.roundServices.round(round);
     } else {
       attackWithAilment[round.pokemonFrom.especialStatus](round);
-      if(!attackWithAilment[round.pokemonFrom.especialStatus]){
+      if (!attackWithAilment[round.pokemonFrom.especialStatus]){
         menssagesNoAilment[menssageSelect](round)
       }
     }
@@ -144,16 +144,16 @@ export class RoundComponent implements OnInit {
         setTimeout(() => this.animateAttack.setMessage(''), 2000);
       },
     }
-    if(effectAilment[round.pokemonFrom.especialStatus]){
+    if (effectAilment[round.pokemonFrom.especialStatus]){
       console.log('entrou!1');
       effectAilment[round.pokemonFrom.especialStatus](round.pokemonFrom, round.p1, round.pokemonFrom.especialStatus)
-      if(effectAilment[round.pokemonTo.especialStatus]){
+      if (effectAilment[round.pokemonTo.especialStatus]){
         setTimeout(
           () => effectAilment[round.pokemonTo.especialStatus](round.pokemonTo, round.p2, round.pokemonTo.especialStatus),
           2500
         );
       }
-    } else if(effectAilment[round.pokemonTo.especialStatus]){
+    } else if (effectAilment[round.pokemonTo.especialStatus]){
       console.log('entrou!2');
       effectAilment[round.pokemonTo.especialStatus](round.pokemonTo, round.np2, round.pokemonTo.especialStatus)
     }
@@ -205,25 +205,25 @@ export class RoundComponent implements OnInit {
   }
 
   applyAilment(pokemon, np, ailment) {
-    const routeAilment = {      
-      sleep: (pokemon)=>{
-        if(pokemon.countSleep <= 0){
+    const routeAilment = {
+      sleep: () => {
+        pokemon.countSleep--;
+        if (pokemon.countSleep <= 0) {
           pokemon.countSleep = 0;
           pokemon.especialStatus = 'normal';
         }
-        pokemon.countSleep--;
       },
-      confusion: (pokemon)=>{ },
-      poison: (pokemon)=>{
+      confusion: () => { },
+      poison: () => {
         let newHP = Math.floor(pokemon.hp.value - (pokemon.status[4].value / 8));
         if (newHP <= 0) { newHP = 0; }
         setTimeout(() => { this.animateAttack.hpMinus(pokemon, np, newHP); }, 2000);
       },
-      burn: (pokemon)=>{ },
-      leechseed: (pokemon)=>{ },
-      paralysis: (pokemon)=>{ },
-      trap: (pokemon)=>{ },
-    }
+      burn: () => { },
+      leechseed: () => { },
+      paralysis: () => { },
+      trap: () => { },
+    };
     routeAilment[ailment](pokemon);
   }
 }
